@@ -40,8 +40,6 @@ def AddEmp():
     insert_sql = "INSERT INTO attendance VALUES (%s, %s, %s)"
     cursor = db_conn.cursor()
 
-    
-
     print("all modification done...")
     return render_template('AddEmpOutput.html', id=empid, date=date, time=time)
 
