@@ -20,7 +20,6 @@ db_conn = connections.Connection(
 output = {}
 table = 'employee'
 
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('AddEmp.html')
@@ -30,6 +29,10 @@ def home():
 def about():
     return render_template('www.intellipaat.com')
 
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    return render_template('AddAtt.html')
+
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
@@ -38,9 +41,12 @@ def AddEmp():
     last_name = request.form['last_name']
     pri_skill = request.form['pri_skill']
     location = request.form['location']
-    emp_image_file = request.files['emp_image_file']
+    rate_per_day = request.form['rate_per_day']
+    position = request.form['position']
+    image = request.files['image']
+    hire_date = request.form['hire_date']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -84,3 +90,30 @@ def AddEmp():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 
+
+
+@app.route("/addatt", methods=['POST'])
+def AddAtt():
+    empid = request.form['empid']
+    date = request.form['date']
+    time = request.form['time']
+
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s)"
+    cursor = db_conn.cursor()
+
+    if empid == "":
+        return "Please enter an Employee ID!"
+
+    try:
+        cursor.execute(insert_sql, (empid, date, time))
+        db_conn.commit()
+        s3 = boto3.resource('s3')
+
+        except Exception as e:
+            return str(e)
+
+    finally:
+        cursor.close()
+
+    print("all modification done...")
+    return render_template('AddAttOutput.html', name=empid)
