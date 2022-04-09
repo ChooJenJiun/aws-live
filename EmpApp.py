@@ -42,9 +42,6 @@ def AddEmp():
 
     
 
-    finally:
-        cursor.close()
-
     print("all modification done...")
     return render_template('AddEmpOutput.html', id=empid, date=date, time=time)
 
