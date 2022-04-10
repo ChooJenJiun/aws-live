@@ -31,6 +31,10 @@ def home():
 def addAtt():
     return render_template('AddAtt.html')
 
+@app.route("/getatt", methods=['GET'])
+def GetAtt():
+    return render_template('GetAtt.html')
+
 
 @app.route("/about", methods=['POST'])
 def about():
