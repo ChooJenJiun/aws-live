@@ -26,7 +26,7 @@ def home():
     return render_template('AddEmp.html')
 
 @app.route("/addatt", methods=['GET', 'POST'])
-def home():
+def addAtt():
     return render_template('AddAtt.html')
 
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
 
 
 
-@app.route("/addatt", methods=['POST'])
+@app.route("/addatt2", methods=['POST'])
 def AddAtt():
     empid = request.form['empid']
     cursor = db_conn.cursor()
