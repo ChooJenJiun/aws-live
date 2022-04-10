@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from unittest import result
 from pymysql import connections
 import os
 import boto3
@@ -120,6 +121,13 @@ def AddAttOutPut():
         cursor.close()
     return render_template('AddAttOutPut.html', id=empid, now=datetime)
 
-    
+@app.route("/getatt2", methods=['GET', 'POST'])
+def GetAttOutPut():
+    cursor = db_conn.cursor()
+    cursor.execute('Select * from attendance')
+    results = cursor.fetchall()
+    lresults = list(results)
+
+    return render_template('GetAttOutput.html', results=lresults,)
 
  
