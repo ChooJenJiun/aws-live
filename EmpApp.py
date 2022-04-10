@@ -30,9 +30,7 @@ def home():
 def about():
     return render_template('www.intellipaat.com')
 
-@app.route("/addatt", methods=['GET', 'POST'])
-def home():
-    return render_template('AddAtt.html')
+
 
 @app.route("/getatt", methods=['GET', 'POST'])
 def home():
