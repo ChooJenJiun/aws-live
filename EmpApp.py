@@ -104,7 +104,7 @@ def AddAtt():
     cursor = db_conn.cursor()
     
     now = datetime.now()
-    now.strftime(%d %m %Y, %H %M %S)
+    now.strftime("%d-%m-%Y, %H:%M:%S")
 
     insert_sql = "INSERT INTO attendance VALUES (%s)"
     cursor = db_conn.cursor()
