@@ -123,16 +123,6 @@ def AddAtt():
         cursor.close()
     return render_template('AddAttOutput.html', id=empid)
 
-    @app.route("/getatt", methods=['POST'])
-def GetAtt():
-    empid = request.form['empid']
-    cursor = db_conn.cursor()
-
-    get_dateAndTime = "select * from attendance where empid = %s"
-    cursor.execute(get_dateAndTime,(empid)))
-
-    empAllAtt = cursor.fetchall()(empid, dateAndTime)
-
-    return render_template('GetAttOutput.html', empid=empid, dateAndTime=dateAndTime)
+    
 
  
