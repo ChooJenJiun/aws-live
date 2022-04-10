@@ -25,6 +25,10 @@ table = 'employee'
 def home():
     return render_template('AddEmp.html')
 
+@app.route("/addatt", methods=['GET', 'POST'])
+def home():
+    return render_template('AddAtt.html')
+
 
 @app.route("/about", methods=['POST'])
 def about():
