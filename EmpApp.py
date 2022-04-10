@@ -32,11 +32,6 @@ def about():
 
 
 
-@app.route("/getatt", methods=['GET', 'POST'])
-def home():
-    return render_template('GetAtt.html')
-
-
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
     empid = request.form['empid']
