@@ -3,6 +3,7 @@ from pymysql import connections
 import os
 import boto3
 from config import *
+import datetime
 
 app = Flask(__name__)
 
@@ -102,17 +103,17 @@ def AddAtt():
     empid = request.form['empid']
     cursor = db_conn.cursor()
     
-    now = dateAndTime.now()
-    dateAndTime = now.strftime(%d %m %Y, %H %M %S)
+    now = datetime.now()
+    now.strftime(%d %m %Y, %H %M %S)
 
-    insert_sql = "INSERT INTO attendance VALUES (%s, %s)"
+    insert_sql = "INSERT INTO attendance VALUES (%s)"
     cursor = db_conn.cursor()
 
     if empid == "":
         return "Please enter an Employee ID!"
 
     try:
-        cursor.execute(insert_sql, (empid, dateAndTime))
+        cursor.execute(insert_sql, (empid))
         db_conn.commit()
 
     except Exception as e:
@@ -120,14 +121,14 @@ def AddAtt():
 
     finally:
         cursor.close()
-    return render_template('AddAttOutput.html', name=empid)
+    return render_template('AddAttOutput.html', id=empid)
 
     @app.route("/getatt", methods=['POST'])
 def GetAtt():
     empid = request.form['empid']
     cursor = db_conn.cursor()
 
-    get_dateAndTime = "select * from attendance where empid = %s"(%d %m %Y, %H %M %S)""
+    get_dateAndTime = "select * from attendance where empid = %s"
     cursor.execute(get_dateAndTime,(empid)))
 
     empAllAtt = cursor.fetchall()(empid, dateAndTime)
