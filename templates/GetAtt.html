@@ -22,7 +22,7 @@
 							<a class="nav-link" href="/addatt">&nbsp;Time and Attendance</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="GetAtt.html">&nbsp;Attendance List</a>
+							<a class="nav-link" href="/getatt">&nbsp;Attendance List</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/payroll">&nbsp;Payroll Generator</a>
@@ -42,18 +42,14 @@
 
 		<body bgcolor="lightgrey">
 
-			<form action="/getatt" autocomplete="on" method="POST">
+			<form action="/getatt2" autocomplete="on" method="POST">
 
-				<h2 style="color: grey">Enter Employee ID</h2>
+				<h2 style="color: grey">Enter Employee ID:</h2>
 
 		  		Employee ID:<br> <input style="height:25px;font-size:14pt;" type="number" name="empid" autofocus size="40"><br><br>
 
-				Select a date:<br> <input style="height:25px;font-size:14pt;" type="date" name="dateAndTime" autofocus size="40"><br><br>
-                
-
-		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">GET ATTENDANCE</button><br><br>
-
-		  		
+		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: 
+				  white; size: 5; font:oblique;">CHECK ATTENDANCE</button><br><br>
 
 			</form>
 
