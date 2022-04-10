@@ -22,7 +22,7 @@
 							<a class="nav-link" href="/addatt">&nbsp;Time and Attendance</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="GetAtt.html">&nbsp;Attendance List</a>
+							<a class="nav-link" href="/getatt">&nbsp;Attendance List</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="/payroll">&nbsp;Payroll Generator</a>
@@ -36,7 +36,7 @@
 	<title>Employee Attendance</title>
 </head>
 <style type="text/css">
-	table{
+	.table{
 		border-collapse: collapse;
 		width: 100%;
 		color: #d96459;
@@ -58,7 +58,7 @@
 		<body bgcolor="lightgrey">
 			<form>
 				<div>
-					<table>
+					<table class="table">
 						<tr>
 							<th>
 								Employee ID
@@ -67,18 +67,20 @@
 								Date and Time
 							</th>
 						</tr>
+						{% for result in results %}
 						<tr>
 							<td>
-								 {{ id }} 
+								 {{ results[0] }} 
 							</td>
 							<td>
-								{{ dateTime }}
+								{{ results[1] }}
 							</td>
 
 						</tr>
+						{% endfor %}
 					</table>
 
-			  		<button type="submit" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;" formaction="http://44.201.152.219/getatt">RESET</button><br><br>
+			  		<button type="submit" href="/getatt" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">RETURN</button><br><br>
 
 			  	</div>
 
