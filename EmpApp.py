@@ -33,20 +33,25 @@ def about():
 def home():
     return render_template('AddAtt.html')
 
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    return render_template('GetAtt.html')
+
 
 @app.route("/addemp", methods=['POST'])
 def AddEmp():
-    emp_id = request.form['emp_id']
+    empid = request.form['empid']
     first_name = request.form['first_name']
     last_name = request.form['last_name']
-    pri_skill = request.form['pri_skill']
-    location = request.form['location']
+    gender = request.form['gender']
+    phone = request.form['phone']
     rate_per_day = request.form['rate_per_day']
-    position = request.form['position']
-    image = request.files['image']
-    hire_date = request.form['hire_date']
+    postiion = request.form['postiion']
+    location = request.form['location']
+    hired_date = request.form['hired_date']
+    emp_image_file = request.files['emp_image_file']
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
     if emp_image_file.filename == "":
@@ -54,11 +59,11 @@ def AddEmp():
 
     try:
 
-        cursor.execute(insert_sql, (emp_id, first_name, last_name, pri_skill, location))
+        cursor.execute(insert_sql, (empid, name, gender, phone, rate_per_day, postiion, location, hired_date))
         db_conn.commit()
-        emp_name = "" + first_name + " " + last_name
+        name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
-        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        emp_image_file_name_in_s3 = "empid-" + str(emp_id) + "_image_file"
         s3 = boto3.resource('s3')
 
         try:
@@ -95,25 +100,38 @@ if __name__ == '__main__':
 @app.route("/addatt", methods=['POST'])
 def AddAtt():
     empid = request.form['empid']
-    date = request.form['date']
-    time = request.form['time']
+    cursor = db_conn.cursor()
+    
+    now = dateAndTime.now()
+    dateAndTime = now.strftime(%d %m %Y, %H %M %S)
 
-    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s)"
+    insert_sql = "INSERT INTO attendance VALUES (%s, %s)"
     cursor = db_conn.cursor()
 
     if empid == "":
         return "Please enter an Employee ID!"
 
     try:
-        cursor.execute(insert_sql, (empid, date, time))
+        cursor.execute(insert_sql, (empid, dateAndTime))
         db_conn.commit()
-        s3 = boto3.resource('s3')
 
-        except Exception as e:
+    except Exception as e:
             return str(e)
 
     finally:
         cursor.close()
-
-    print("all modification done...")
     return render_template('AddAttOutput.html', name=empid)
+
+    @app.route("/getatt", methods=['POST'])
+def GetAtt():
+    empid = request.form['empid']
+    cursor = db_conn.cursor()
+
+    get_dateAndTime = "select * from attendance where empid = %s"(%d %m %Y, %H %M %S)""
+    cursor.execute(get_dateAndTime,(empid)))
+
+    empAllAtt = cursor.fetchall()(empid, dateAndTime)
+
+    return render_template('GetAttOutput.html', empid=empid, dateAndTime=dateAndTime)
+
+ 
