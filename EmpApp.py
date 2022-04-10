@@ -63,7 +63,7 @@ def AddEmp():
         db_conn.commit()
         name = "" + first_name + " " + last_name
         # Uplaod image file in S3 #
-        emp_image_file_name_in_s3 = "empid-" + str(emp_id) + "_image_file"
+        emp_image_file_name_in_s3 = "empid-" + str(empid) + "_image_file"
         s3 = boto3.resource('s3')
 
         try:
@@ -89,7 +89,7 @@ def AddEmp():
         cursor.close()
 
     print("all modification done...")
-    return render_template('AddEmpOutput.html', name=emp_name)
+    return render_template('AddEmpOutput.html', name=name)
 
 
 if __name__ == '__main__':
